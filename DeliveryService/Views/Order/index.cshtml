@@ -1,0 +1,52 @@
+@model IEnumerable<DeliveryService.Models.Order>
+
+@{
+    ViewData["Title"] = "Список заказов";
+}
+
+<h1 class="mb-4">Список заказов</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Создать новый заказ</a>
+</p>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-primary">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.OrderNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.SenderCity)</th>
+                <th>@Html.DisplayNameFor(model => model.ReceiverCity)</th>
+                <th>@Html.DisplayNameFor(model => model.Weight)</th>
+                <th>@Html.DisplayNameFor(model => model.PickupDate)</th>
+                <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.OrderNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SenderCity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ReceiverCity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Weight) кг</td>
+                    <td>@Html.DisplayFor(modelItem => item.PickupDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Просмотр</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <p>Нет созданных заказов. <a asp-action="Create">Создать первый заказ</a></p>
+    </div>
+}
